@@ -8,6 +8,11 @@ import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
 
+import {enableProdMode} from '@angular/core';
+
+// Faster server renders w/ Prod mode (dev mode never needed)
+enableProdMode();
+
 export const app = express();
 const distFolder = join(process.cwd(), 'dist/angularSeo/browser');
 const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
@@ -28,8 +33,11 @@ app.get('*.*', express.static(distFolder, {
 }));
 
 // All regular routes use the Universal engine
+// app.get('*', (req, res) => {
+//     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+// });
 app.get('*', (req, res) => {
-    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+    res.render(indexHtml, { req });
 });
 
 export * from './src/main.server';
