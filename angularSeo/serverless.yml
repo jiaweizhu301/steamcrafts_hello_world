@@ -7,7 +7,8 @@ provider:
   runtime: nodejs12.x
   memorySize: 128
   timeout: 10
-  region: us-west-1
+  stage: dev
+  region: us-east-1
 package:
   exclude:
     - ./**
@@ -18,6 +19,8 @@ package:
     - "node_modules/media-typer/**"
     - "node_modules/mime-types/**"
     - "node_modules/mime-db/**"
+    - "dist/angularSeo/browser/**"
+    - "dist/angularSeo/serverless/**"
     - "dist/**"
     - "lambda.js"
 custom:
@@ -27,8 +30,14 @@ custom:
   serverless-offline:
     noPrependStageInUrl: true
 functions:
-  api:
+  mApi:
     handler: lambda.handler
     events:
-      - http: GET {proxy+}
-      - http: GET /
+      - http: 
+          method: GET 
+          path: '{proxy+}'
+          cors: true
+      - http: 
+          method: GET 
+          path: /
+          cors: true
