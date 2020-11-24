@@ -1,4 +1,4 @@
-service: angular-serverless-starter
+service: http-api-service
 plugins:
   - serverless-apigw-binary
   - serverless-offline
@@ -7,7 +7,6 @@ provider:
   runtime: nodejs12.x
   memorySize: 128
   timeout: 10
-  stage: dev
   region: us-east-1
 package:
   exclude:
@@ -19,8 +18,6 @@ package:
     - "node_modules/media-typer/**"
     - "node_modules/mime-types/**"
     - "node_modules/mime-db/**"
-    - "dist/angularSeo/browser/**"
-    - "dist/angularSeo/serverless/**"
     - "dist/**"
     - "lambda.js"
 custom:
@@ -28,16 +25,9 @@ custom:
     types:
       - "*/*"
   serverless-offline:
-    noPrependStageInUrl: true
+      noPrependStageInUrl: true
 functions:
-  mApi:
+  api:
     handler: lambda.handler
     events:
-      - http: 
-          method: GET 
-          path: '{proxy+}'
-          cors: true
-      - http: 
-          method: GET 
-          path: /
-          cors: true
+        - httpApi: '*'
