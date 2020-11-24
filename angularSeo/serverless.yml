@@ -8,6 +8,8 @@ provider:
   memorySize: 128
   timeout: 10
   region: us-east-1
+  httpApi:
+    cors: true
 package:
   exclude:
     - ./**
@@ -30,4 +32,6 @@ functions:
   api:
     handler: lambda.handler
     events:
-        - httpApi: '*'
+      - httpApi: '*'
+        # - http: ANY /
+        # - http: 'ANY {proxy+}'
