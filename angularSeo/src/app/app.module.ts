@@ -7,6 +7,10 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { NavComponent } from './nav/nav.component';
 import { AppToutingModule } from './app-touting.module';
 
+// test http
+import { HttpClientModule } from '@angular/common/http';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +20,8 @@ import { AppToutingModule } from './app-touting.module';
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    AppToutingModule
+    AppToutingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
