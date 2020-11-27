@@ -10,6 +10,8 @@ provider:
   region: us-east-1
   httpApi:
     cors: true
+  http:
+    cors: true
 package:
   exclude:
     - ./**
@@ -20,6 +22,8 @@ package:
     - "node_modules/media-typer/**"
     - "node_modules/mime-types/**"
     - "node_modules/mime-db/**"
+    - "dist/ngx-serverless-starter/browser/**"
+    - "dist/ngx-serverless-starter/serverless/**"
     - "dist/**"
     - "lambda.js"
 custom:
@@ -32,6 +36,12 @@ functions:
   api:
     handler: lambda.handler
     events:
-      - httpApi: '*'
-        # - http: ANY /
-        # - http: 'ANY {proxy+}'
+      # - httpApi: '*'
+        - http:
+            path: /
+            method: ANY
+            cors: true
+        - http: 
+            path: /{any+}
+            method: ANY
+            cors: true
